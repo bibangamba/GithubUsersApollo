@@ -33,11 +33,11 @@ public class GithubUsersListTest {
     @Rule
     public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Test
-    public void loadingProgressDialogIsShown() throws Exception {
-        onView(ViewMatchers.withId(R.id.github_users_progress_bar)).check(matches(isDisplayed()));
-        onView(withId(R.id.recycler_view)).check(matches(not(isDisplayed())));
-    }
+//    @Test
+//    public void loadingProgressDialogIsShown() throws Exception {
+//        onView(ViewMatchers.withId(R.id.github_users_progress_bar)).check(matches(isDisplayed()));
+//        onView(withId(R.id.recycler_view)).check(matches(not(isDisplayed())));
+//    }
 
     @Test
     public void scrollThroughListOfGithubUsers() throws Exception {
