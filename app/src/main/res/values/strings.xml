@@ -2,4 +2,15 @@
     <string name="app_name">GitHubUsers</string>
     <string name="github_user_profile_picture">GitHub user\'s profile picture</string>
     <string name="github_username">GitHub username</string>
+    <string name="profile_picture_content_description">Github user\'s profile picture</string>
+    <string name="default_username">bibangamba</string>
+    <string name="default_organization">Andela</string>
+    <string name="default_bio_text">This is an awesome bio. I know you can tell, you\'re smart.</string>
+    <string name="default_follows_value">314</string>
+    <string name="follows_label">following</string>
+    <string name="default_repos_value">16</string>
+    <string name="repos_label">repos</string>
+    <string name="default_followers_value">4</string>
+    <string name="followers_label">followers</string>
+    <string name="share_button_content_description">Share button</string>
 </resources>
