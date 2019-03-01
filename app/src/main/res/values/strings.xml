@@ -14,4 +14,5 @@
     <string name="followers_label">followers</string>
     <string name="share_button_content_description">Share button</string>
     <string name="GithubUsersPresenterTag">GithubUsersPresenter</string>
+    <string name="error_message_when_retrieving_data_from_api">Failed to retrieve GithubUsersResponse</string>
 </resources>
