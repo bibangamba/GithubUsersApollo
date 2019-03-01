@@ -16,11 +16,11 @@ import java.util.List;
 
 import model.GithubUsers;
 
-public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.GithubUserViewHolder> {
+public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.GithubUserViewHolder> {
     Context context;
     private List<GithubUsers> githubUsers;
 
-    public GithubAdapter(Context context, List<GithubUsers> listOfGithubUsers) {
+    public GithubUsersAdapter(Context context, List<GithubUsers> listOfGithubUsers) {
         this.context = context;
         this.githubUsers = listOfGithubUsers;
     }
