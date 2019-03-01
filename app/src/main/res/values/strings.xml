@@ -13,4 +13,5 @@
     <string name="default_followers_value">4</string>
     <string name="followers_label">followers</string>
     <string name="share_button_content_description">Share button</string>
+    <string name="GithubUsersPresenterTag">GithubUsersPresenter</string>
 </resources>
