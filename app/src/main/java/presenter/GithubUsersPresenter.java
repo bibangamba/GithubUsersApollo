@@ -8,7 +8,7 @@ import com.levelup.bibangamba.githubusers.R;
 
 import java.util.List;
 
-import adapters.GithubAdapter;
+import adapters.GithubUsersAdapter;
 import model.GithubUsers;
 import model.GithubUsersResponse;
 import retrofit2.Call;
@@ -18,7 +18,7 @@ import service.GithubService;
 import view.GithubUsersView;
 
 public class GithubUsersPresenter {
-    private GithubAdapter githubAdapter;
+    private GithubUsersAdapter githubUsersAdapter;
     private Context context;
     private String TAG;
     private GithubUsersView githubUsersView;
@@ -28,10 +28,7 @@ public class GithubUsersPresenter {
         this.context = context;
         TAG = context.getString(R.string.GithubUsersPresenterTag);
         this.githubUsersView = view;
-        if (this.githubService.equals(null)) {
             this.githubService = new GithubService();
-        }
-
     }
 
     public void getGithubUsers() {
@@ -42,16 +39,15 @@ public class GithubUsersPresenter {
                     @Override
                     public void onResponse(@NonNull Call<GithubUsersResponse> call, @NonNull Response<GithubUsersResponse> response) {
                         GithubUsersResponse githubUsersResponse = response.body();
-                        if (!githubUsersResponse.equals(null) && !(githubUsersResponse.getUsers()).equals(null)) {
-                            List<GithubUsers> users = githubUsersResponse.getUsers();
-                            githubUsersView.githubUsersHaveBeenFetchedAndAreReady(users);
-
-                            githubAdapter = new GithubAdapter(context, users);
-                        }
+                        assert githubUsersResponse != null;
+                        List<GithubUsers> users = githubUsersResponse.getUsers();
+                            githubUsersAdapter = new GithubUsersAdapter(context, users);
+                            githubUsersView.githubUsersHaveBeenFetchedAndAreReadyForUse(users);
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<GithubUsersResponse> call, @NonNull Throwable t) {
+                        githubUsersAdapter = null;
                         try {
                             throw new InterruptedException(context.getString(R.string.error_message_when_retrieving_data_from_api));
                         } catch (InterruptedException e) {

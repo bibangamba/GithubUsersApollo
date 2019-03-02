@@ -5,5 +5,5 @@ import java.util.List;
 import model.GithubUsers;
 
 public interface GithubUsersView {
-    void githubUsersHaveBeenFetchedAndAreReady(List<GithubUsers> githubUsers);
+    void githubUsersHaveBeenFetchedAndAreReadyForUse(List<GithubUsers> githubUsers);
 }
