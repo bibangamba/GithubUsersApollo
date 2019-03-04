@@ -1,8 +1,11 @@
 package model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class GithubUsers {
+public class GithubUsers implements Parcelable {
     @SerializedName("avatar_url")
     private String profilePicture;
     @SerializedName("login")
@@ -13,6 +16,26 @@ public class GithubUsers {
     private String followersUrl;
     @SerializedName("following_url")
     private String followingUrl;
+
+    protected GithubUsers(Parcel in) {
+        profilePicture = in.readString();
+        username = in.readString();
+        bio = in.readString();
+        followersUrl = in.readString();
+        followingUrl = in.readString();
+    }
+
+    public static final Creator<GithubUsers> CREATOR = new Creator<GithubUsers>() {
+        @Override
+        public GithubUsers createFromParcel(Parcel in) {
+            return new GithubUsers(in);
+        }
+
+        @Override
+        public GithubUsers[] newArray(int size) {
+            return new GithubUsers[size];
+        }
+    };
 
     public String getProfilePicture() {
         return profilePicture;
@@ -52,5 +75,19 @@ public class GithubUsers {
 
     public void setFollowingUrl(String followingUrl) {
         this.followingUrl = followingUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(profilePicture);
+        dest.writeString(username);
+        dest.writeString(bio);
+        dest.writeString(followersUrl);
+        dest.writeString(followingUrl);
     }
 }

@@ -19,7 +19,7 @@ import model.GithubUsers;
 import view.DetailActivity;
 
 public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.GithubUserViewHolder> {
-    Context context;
+    private Context context;
     private List<GithubUsers> githubUsers;
 
     public GithubUsersAdapter(Context context, List<GithubUsers> listOfGithubUsers) {
