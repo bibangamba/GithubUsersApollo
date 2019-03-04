@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.levelup.bibangamba.githubusers.R;
 import java.util.List;
 
 import model.GithubUsers;
+import view.DetailActivity;
 
 public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.GithubUserViewHolder> {
     Context context;
@@ -42,6 +44,14 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
                 .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .into(githubUserViewHolder.profilePictureImageView);
+
+        githubUserViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startDetailActivityIntent = new Intent(context, DetailActivity.class);
+                context.startActivity(startDetailActivityIntent);
+            }
+        });
     }
 
     @Override
