@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView {
     Parcelable listState;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<GithubUsers> retrievedGithubUsers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +31,10 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView {
         githubUsersRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(MainActivity.this);
         githubUsersRecyclerView.setLayoutManager(layoutManager);
-        GithubUsersPresenter githubUsersPresenter = new GithubUsersPresenter(this, this);
-        githubUsersPresenter.getGithubUsers();
+        if (savedInstanceState == null) {
+            GithubUsersPresenter githubUsersPresenter = new GithubUsersPresenter(this, this);
+            githubUsersPresenter.getGithubUsers();
+        }
     }
 
     @Override
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView {
 
     protected void onRestoreInstanceState(Bundle state) {
         super.onRestoreInstanceState(state);
-        if (state != null){
+        if (state != null) {
             retrievedGithubUsers = state.getParcelableArrayList(GITHUB_USERS);
             listState = state.getParcelable(LIST_STATE_KEY);
         }

@@ -11,18 +11,24 @@ public class GithubUsers implements Parcelable {
     @SerializedName("login")
     private String username;
     @SerializedName("html_url")
-    private String bio;
-    @SerializedName("followers_url")
-    private String followersUrl;
-    @SerializedName("following_url")
-    private String followingUrl;
+    private String profileUrl;
+    @SerializedName("followers")
+    private String followers;
+    @SerializedName("following")
+    private String following;
+    @SerializedName("public_repos")
+    private String repos;
+    @SerializedName("company")
+    private String company;
 
     protected GithubUsers(Parcel in) {
         profilePicture = in.readString();
         username = in.readString();
-        bio = in.readString();
-        followersUrl = in.readString();
-        followingUrl = in.readString();
+        profileUrl = in.readString();
+        followers = in.readString();
+        following = in.readString();
+        repos = in.readString();
+        company = in.readString();
     }
 
     public static final Creator<GithubUsers> CREATOR = new Creator<GithubUsers>() {
@@ -53,28 +59,44 @@ public class GithubUsers implements Parcelable {
         this.username = username;
     }
 
-    public String getBio() {
-        return bio;
+    public String getProfileUrl() {
+        return profileUrl;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 
-    public String getFollowersUrl() {
-        return followersUrl;
+    public String getFollowers() {
+        return followers;
     }
 
-    public void setFollowersUrl(String followersUrl) {
-        this.followersUrl = followersUrl;
+    public void setFollowers(String followers) {
+        this.followers = followers;
     }
 
-    public String getFollowingUrl() {
-        return followingUrl;
+    public String getFollowing() {
+        return following;
     }
 
-    public void setFollowingUrl(String followingUrl) {
-        this.followingUrl = followingUrl;
+    public void setFollowing(String following) {
+        this.following = following;
+    }
+
+    public String getRepos() {
+        return repos;
+    }
+
+    public void setRepos(String repos) {
+        this.repos = repos;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     @Override
@@ -86,8 +108,10 @@ public class GithubUsers implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(profilePicture);
         dest.writeString(username);
-        dest.writeString(bio);
-        dest.writeString(followersUrl);
-        dest.writeString(followingUrl);
+        dest.writeString(profileUrl);
+        dest.writeString(followers);
+        dest.writeString(following);
+        dest.writeString(repos);
+        dest.writeString(company);
     }
 }

@@ -15,10 +15,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import service.GithubService;
+import view.GithubUserDetailsView;
 import view.GithubUsersView;
 
 public class GithubUsersPresenter {
-    private GithubUsersAdapter githubUsersAdapter;
     private Context context;
     private String TAG;
     private GithubUsersView githubUsersView;
@@ -41,13 +41,11 @@ public class GithubUsersPresenter {
                         GithubUsersResponse githubUsersResponse = response.body();
                         assert githubUsersResponse != null;
                         List<GithubUsers> users = githubUsersResponse.getUsers();
-                            githubUsersAdapter = new GithubUsersAdapter(context, users);
                             githubUsersView.githubUsersHaveBeenFetchedAndAreReadyForUse(users);
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<GithubUsersResponse> call, @NonNull Throwable t) {
-                        githubUsersAdapter = null;
                         try {
                             throw new InterruptedException(context.getString(R.string.error_message_when_retrieving_data_from_api));
                         } catch (InterruptedException e) {
