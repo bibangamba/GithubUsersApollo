@@ -21,10 +21,12 @@ import view.DetailActivity;
 public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.GithubUserViewHolder> {
     private Context context;
     private List<GithubUsers> githubUsers;
+    private String GITHUB_USER_DETAILS;
 
     public GithubUsersAdapter(Context context, List<GithubUsers> listOfGithubUsers) {
         this.context = context;
         this.githubUsers = listOfGithubUsers;
+        GITHUB_USER_DETAILS = context.getString(R.string.github_user_details);
     }
 
 
@@ -36,7 +38,7 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GithubUserViewHolder githubUserViewHolder, int position) {
+    public void onBindViewHolder(@NonNull GithubUserViewHolder githubUserViewHolder, final int position) {
         githubUserViewHolder.githubUsernameTextView.setText(githubUsers.get(position).getUsername());
         Glide
                 .with(context)
@@ -49,6 +51,7 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
             @Override
             public void onClick(View v) {
                 Intent startDetailActivityIntent = new Intent(context, DetailActivity.class);
+                startDetailActivityIntent.putExtra(GITHUB_USER_DETAILS, githubUsers.get(position));
                 context.startActivity(startDetailActivityIntent);
             }
         });
