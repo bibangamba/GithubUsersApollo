@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +15,7 @@ import com.levelup.bibangamba.githubusers.R;
 import model.GithubUsers;
 import presenter.GithubUserDetailsPresenter;
 
-public class DetailActivity extends AppCompatActivity implements GithubUserDetailsView {
+public class DetailActivity extends AppCompatActivity implements GithubUserDetailsView, View.OnClickListener {
     ImageView profilePictureImageView;
     TextView usernameTextView;
     TextView profileUrlTextView;
@@ -21,16 +23,18 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
     TextView followingTextView;
     TextView followersTextView;
     TextView reposTextView;
+    ImageButton shareButton;
+    GithubUsers userDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_details_view);
         Intent getIntentThatLaunchDetailActivity = getIntent();
-        GithubUsers userDetails = getIntentThatLaunchDetailActivity.getParcelableExtra(getString(R.string.github_user_details));
+        userDetails = getIntentThatLaunchDetailActivity.getParcelableExtra(getString(R.string.github_user_details));
 
         if (savedInstanceState == null) {
-            GithubUserDetailsPresenter githubUserDetailsPresenter= new GithubUserDetailsPresenter(this, this);
+            GithubUserDetailsPresenter githubUserDetailsPresenter = new GithubUserDetailsPresenter(this, this);
             githubUserDetailsPresenter.getGithubUserInfo(userDetails.getUsername());
         }
 
@@ -41,6 +45,7 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         followersTextView = findViewById(R.id.followersValueTextView);
         reposTextView = findViewById(R.id.reposValueTextView);
         profilePictureImageView = findViewById(R.id.profilePictureImageView);
+        shareButton = findViewById(R.id.shareButton);
         Glide
                 .with(this)
                 .load(userDetails.getProfilePicture())
@@ -49,6 +54,7 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
                 .into(profilePictureImageView);
         usernameTextView.setText(userDetails.getUsername());
         profileUrlTextView.setText(userDetails.getProfileUrl());
+        shareButton.setOnClickListener(this);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -65,5 +71,21 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         followersTextView.setText(githubUser.getFollowers());
         reposTextView.setText(githubUser.getRepos());
         organisationTextView.setText(githubUser.getCompany());
+    }
+
+    @Override
+    public void onClick(View clickedView) {
+        int viewId = clickedView.getId();
+        if (viewId == R.id.shareButton) {
+            handleShareButtonClick();
+
+        }
+    }
+
+    private void handleShareButtonClick() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("Check out this awesome developer @%s, %s.", userDetails.getUsername(), userDetails.getProfileUrl()));
+        startActivity(Intent.createChooser(shareIntent, String.format("Share @%s's profile using:", userDetails.getUsername())));
     }
 }
