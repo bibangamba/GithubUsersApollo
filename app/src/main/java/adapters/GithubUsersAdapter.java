@@ -33,7 +33,7 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
     @NonNull
     @Override
     public GithubUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View githubUserListItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.github_user_list_item, parent, false);
+        View githubUserListItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.github_user_grid_item, parent, false);
         return new GithubUserViewHolder(githubUserListItem);
     }
 
