@@ -1,4 +1,4 @@
-package view;
+package com.levelup.bibangamba.githubusers.view;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,10 +17,10 @@ import com.levelup.bibangamba.githubusers.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.GithubUsersAdapter;
-import model.GithubUsers;
-import presenter.GithubUsersPresenter;
-import util.EspressoIdlingResource;
+import com.levelup.bibangamba.githubusers.adapters.GithubUsersAdapter;
+import com.levelup.bibangamba.githubusers.model.GithubUsers;
+import com.levelup.bibangamba.githubusers.presenter.GithubUsersPresenter;
+import com.levelup.bibangamba.githubusers.util.EspressoIdlingResource;
 
 public class MainActivity extends AppCompatActivity implements GithubUsersView, SwipeRefreshLayout.OnRefreshListener {
     public static final String LIST_STATE_KEY = "recycler_list_state";

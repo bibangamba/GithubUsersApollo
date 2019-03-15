@@ -1,4 +1,4 @@
-package presenter;
+package com.levelup.bibangamba.githubusers.presenter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,12 +6,12 @@ import android.util.Log;
 
 import com.levelup.bibangamba.githubusers.R;
 
-import model.GithubUsers;
+import com.levelup.bibangamba.githubusers.model.GithubUsers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import service.GithubService;
-import view.GithubUserDetailsView;
+import com.levelup.bibangamba.githubusers.service.GithubService;
+import com.levelup.bibangamba.githubusers.view.GithubUserDetailsView;
 
 public class GithubUserDetailsPresenter {
     private Context context;
@@ -19,11 +19,12 @@ public class GithubUserDetailsPresenter {
     private GithubUserDetailsView githubUserDetailsView;
     private GithubService githubService;
 
-    public GithubUserDetailsPresenter(Context context, GithubUserDetailsView view) {
+    public GithubUserDetailsPresenter(Context context, GithubUserDetailsView view, GithubService githubService) {
         this.context = context;
         TAG = context.getString(R.string.GithubUserDetailsPresenterTag);
         this.githubUserDetailsView = view;
-        this.githubService = new GithubService();
+        this.githubService = githubService;
+//        this.githubService = new GithubService();
     }
 
     public void getGithubUserInfo(String username) {

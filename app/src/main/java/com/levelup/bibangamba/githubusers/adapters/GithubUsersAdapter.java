@@ -1,4 +1,4 @@
-package adapters;
+package com.levelup.bibangamba.githubusers.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import com.levelup.bibangamba.githubusers.R;
 
 import java.util.List;
 
-import model.GithubUsers;
-import view.DetailActivity;
+import com.levelup.bibangamba.githubusers.model.GithubUsers;
+import com.levelup.bibangamba.githubusers.view.DetailActivity;
 
 public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.GithubUserViewHolder> {
     private Context context;

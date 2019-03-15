@@ -1,4 +1,4 @@
-package view;
+package com.levelup.bibangamba.githubusers.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.levelup.bibangamba.githubusers.R;
 
-import model.GithubUsers;
-import presenter.GithubUserDetailsPresenter;
-import util.EspressoIdlingResource;
+import com.levelup.bibangamba.githubusers.model.GithubUsers;
+import com.levelup.bibangamba.githubusers.presenter.GithubUserDetailsPresenter;
+import com.levelup.bibangamba.githubusers.service.GithubService;
+import com.levelup.bibangamba.githubusers.util.EspressoIdlingResource;
 
 public class DetailActivity extends AppCompatActivity implements GithubUserDetailsView, View.OnClickListener {
     ImageView profilePictureImageView;
@@ -37,7 +38,7 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         userDetails = getIntentThatLaunchDetailActivity.getParcelableExtra(getString(R.string.github_user_details));
 
         if (savedInstanceState == null) {
-            GithubUserDetailsPresenter githubUserDetailsPresenter = new GithubUserDetailsPresenter(this, this);
+            GithubUserDetailsPresenter githubUserDetailsPresenter = new GithubUserDetailsPresenter(this, this, new GithubService());
             githubUserDetailsPresenter.getGithubUserInfo(userDetails.getUsername());
             EspressoIdlingResource.increment();
         }
