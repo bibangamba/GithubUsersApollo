@@ -6,6 +6,17 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class GithubUsers implements Parcelable {
+    public static final Creator<GithubUsers> CREATOR = new Creator<GithubUsers>() {
+        @Override
+        public GithubUsers createFromParcel(Parcel in) {
+            return new GithubUsers(in);
+        }
+
+        @Override
+        public GithubUsers[] newArray(int size) {
+            return new GithubUsers[size];
+        }
+    };
     @SerializedName("avatar_url")
     private String profilePicture;
     @SerializedName("login")
@@ -21,6 +32,9 @@ public class GithubUsers implements Parcelable {
     @SerializedName("company")
     private String company;
 
+    public GithubUsers() {
+    }
+
     protected GithubUsers(Parcel in) {
         profilePicture = in.readString();
         username = in.readString();
@@ -30,18 +44,6 @@ public class GithubUsers implements Parcelable {
         repos = in.readString();
         company = in.readString();
     }
-
-    public static final Creator<GithubUsers> CREATOR = new Creator<GithubUsers>() {
-        @Override
-        public GithubUsers createFromParcel(Parcel in) {
-            return new GithubUsers(in);
-        }
-
-        @Override
-        public GithubUsers[] newArray(int size) {
-            return new GithubUsers[size];
-        }
-    };
 
     public String getProfilePicture() {
         return profilePicture;

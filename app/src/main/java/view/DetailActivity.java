@@ -2,6 +2,8 @@ package view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.levelup.bibangamba.githubusers.R;
 
 import model.GithubUsers;
 import presenter.GithubUserDetailsPresenter;
+import util.EspressoIdlingResource;
 
 public class DetailActivity extends AppCompatActivity implements GithubUserDetailsView, View.OnClickListener {
     ImageView profilePictureImageView;
@@ -36,6 +39,7 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         if (savedInstanceState == null) {
             GithubUserDetailsPresenter githubUserDetailsPresenter = new GithubUserDetailsPresenter(this, this);
             githubUserDetailsPresenter.getGithubUserInfo(userDetails.getUsername());
+            EspressoIdlingResource.increment();
         }
 
         usernameTextView = findViewById(R.id.usernameTextView);
@@ -71,6 +75,7 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         followersTextView.setText(githubUser.getFollowers());
         reposTextView.setText(githubUser.getRepos());
         organisationTextView.setText(githubUser.getCompany());
+        EspressoIdlingResource.decrement();
     }
 
     @Override
@@ -78,7 +83,6 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         int viewId = clickedView.getId();
         if (viewId == R.id.shareButton) {
             handleShareButtonClick();
-
         }
     }
 
@@ -87,5 +91,10 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("Check out this awesome developer @%s, %s.", userDetails.getUsername(), userDetails.getProfileUrl()));
         startActivity(Intent.createChooser(shareIntent, String.format("Share @%s's profile using:", userDetails.getUsername())));
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }

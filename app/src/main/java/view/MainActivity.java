@@ -3,10 +3,11 @@ package view;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import java.util.List;
 import adapters.GithubUsersAdapter;
 import model.GithubUsers;
 import presenter.GithubUsersPresenter;
+import util.EspressoIdlingResource;
 
 public class MainActivity extends AppCompatActivity implements GithubUsersView, SwipeRefreshLayout.OnRefreshListener {
     public static final String LIST_STATE_KEY = "recycler_list_state";
@@ -39,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView, 
         githubUsersSwipeToRefreshLayout = findViewById(R.id.github_users_swipe_refresh_layout);
         githubUsersProgressBar = findViewById(R.id.github_users_progress_bar);
         githubUsersRecyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(MainActivity.this);
 
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(MainActivity.this, 2);
@@ -51,8 +52,10 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView, 
         githubUsersPresenter = new GithubUsersPresenter(this, this);
         if (savedInstanceState == null) {
             githubUsersPresenter.getGithubUsers();
+            EspressoIdlingResource.increment();
         }
         githubUsersSwipeToRefreshLayout.setOnRefreshListener(this);
+
     }
 
     @Override
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView, 
         githubUsersRecyclerView.setAdapter(new GithubUsersAdapter(MainActivity.this, githubUsers));
         githubUsersRecyclerView.setVisibility(View.VISIBLE);
         githubUsersProgressBar.setVisibility(View.GONE);
+
+        EspressoIdlingResource.decrement();
     }
 
 
@@ -98,5 +103,10 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView, 
     private void refreshGithubUsers() {
         githubUsersPresenter.getGithubUsers();
         githubUsersSwipeToRefreshLayout.setRefreshing(false);
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }
