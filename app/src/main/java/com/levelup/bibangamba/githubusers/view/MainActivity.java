@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.Snackbar;
 import android.support.test.espresso.IdlingResource;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import com.levelup.bibangamba.githubusers.adapters.GithubUsersAdapter;
 import com.levelup.bibangamba.githubusers.model.GithubUsers;
 import com.levelup.bibangamba.githubusers.presenter.GithubUsersPresenter;
 import com.levelup.bibangamba.githubusers.util.EspressoIdlingResource;
+
+import com.levelup.bibangamba.githubusers.util.CheckNetworkConnection;
 
 public class MainActivity extends AppCompatActivity implements GithubUsersView, SwipeRefreshLayout.OnRefreshListener {
     public static final String LIST_STATE_KEY = "recycler_list_state";
@@ -51,11 +54,23 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView, 
         githubUsersRecyclerView.setLayoutManager(layoutManager);
         githubUsersPresenter = new GithubUsersPresenter(this, this);
         if (savedInstanceState == null) {
-            githubUsersPresenter.getGithubUsers();
-            EspressoIdlingResource.increment();
+            loadGithubUsers();
         }
         githubUsersSwipeToRefreshLayout.setOnRefreshListener(this);
 
+    }
+
+    public void loadGithubUsers() {
+        if (new CheckNetworkConnection(MainActivity.this).isNetworkAvailable()) {
+            githubUsersPresenter.getGithubUsers();
+            EspressoIdlingResource.increment();
+        } else {
+            githubUsersProgressBar.setVisibility(View.GONE);
+            Snackbar.make(findViewById(R.id.main_activity_constraint_layout), R.string.no_internet,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.retry, new NoInternetSnackBarListener())
+                    .show();
+        }
     }
 
     @Override
@@ -101,12 +116,19 @@ public class MainActivity extends AppCompatActivity implements GithubUsersView, 
     }
 
     private void refreshGithubUsers() {
-        githubUsersPresenter.getGithubUsers();
+        loadGithubUsers();
         githubUsersSwipeToRefreshLayout.setRefreshing(false);
     }
 
     @VisibleForTesting
     public IdlingResource getCountingIdlingResource() {
         return EspressoIdlingResource.getIdlingResource();
+    }
+
+    private class NoInternetSnackBarListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            loadGithubUsers();
+        }
     }
 }
