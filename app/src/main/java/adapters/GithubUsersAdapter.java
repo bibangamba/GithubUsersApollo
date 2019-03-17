@@ -38,7 +38,7 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GithubUserViewHolder githubUserViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull GithubUserViewHolder githubUserViewHolder, int position) {
         githubUserViewHolder.githubUsernameTextView.setText(githubUsers.get(position).getUsername());
         Glide
                 .with(context)
@@ -47,13 +47,10 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
                 .placeholder(R.mipmap.ic_launcher)
                 .into(githubUserViewHolder.profilePictureImageView);
 
-        githubUserViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startDetailActivityIntent = new Intent(context, DetailActivity.class);
-                startDetailActivityIntent.putExtra(GITHUB_USER_DETAILS, githubUsers.get(position));
-                context.startActivity(startDetailActivityIntent);
-            }
+        githubUserViewHolder.itemView.setOnClickListener(v -> {
+            Intent startDetailActivityIntent = new Intent(context, DetailActivity.class);
+            startDetailActivityIntent.putExtra(GITHUB_USER_DETAILS, githubUsers.get(position));
+            context.startActivity(startDetailActivityIntent);
         });
     }
 
