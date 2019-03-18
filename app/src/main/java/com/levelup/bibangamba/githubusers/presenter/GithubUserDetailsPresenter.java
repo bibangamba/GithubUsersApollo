@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.levelup.bibangamba.githubusers.R;
-
 import com.levelup.bibangamba.githubusers.model.GithubUsers;
+import com.levelup.bibangamba.githubusers.service.GithubService;
+import com.levelup.bibangamba.githubusers.view.GithubUserDetailsView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.levelup.bibangamba.githubusers.service.GithubService;
-import com.levelup.bibangamba.githubusers.view.GithubUserDetailsView;
 
 public class GithubUserDetailsPresenter {
     private Context context;
@@ -24,7 +24,6 @@ public class GithubUserDetailsPresenter {
         TAG = context.getString(R.string.GithubUserDetailsPresenterTag);
         this.githubUserDetailsView = view;
         this.githubService = githubService;
-//        this.githubService = new GithubService();
     }
 
     public void getGithubUserInfo(String username) {
@@ -35,8 +34,7 @@ public class GithubUserDetailsPresenter {
                     @Override
                     public void onResponse(@NonNull Call<GithubUsers> call, @NonNull Response<GithubUsers> response) {
                         GithubUsers githubUser = response.body();
-                        assert githubUser != null;
-                        githubUserDetailsView.githubUserInformationFetchComplete(githubUser);
+                            githubUserDetailsView.githubUserInformationFetchComplete(githubUser);
                     }
 
                     @Override
