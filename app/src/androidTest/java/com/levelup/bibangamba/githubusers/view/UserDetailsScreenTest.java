@@ -15,8 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import model.GithubUsers;
-import view.DetailActivity;
+import com.levelup.bibangamba.githubusers.model.GithubUsers;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;

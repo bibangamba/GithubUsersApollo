@@ -1,4 +1,4 @@
-package model;
+package com.levelup.bibangamba.githubusers.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,17 +16,8 @@ public class GithubUsersResponse {
         this.users = new ArrayList<>();
     }
 
-    public static GithubUsersResponse parseResponseJSON(String responseJSON) {
-        Gson gson = new GsonBuilder().create();
-
-        return gson.fromJson(responseJSON, GithubUsersResponse.class);
-    }
-
     public List<GithubUsers> getUsers() {
         return users;
     }
 
-    public void setUsers(List<GithubUsers> users) {
-        this.users = users;
-    }
 }

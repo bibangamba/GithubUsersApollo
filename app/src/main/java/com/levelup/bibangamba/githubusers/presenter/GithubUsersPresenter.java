@@ -1,4 +1,4 @@
-package presenter;
+package com.levelup.bibangamba.githubusers.presenter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,15 +8,13 @@ import com.levelup.bibangamba.githubusers.R;
 
 import java.util.List;
 
-import adapters.GithubUsersAdapter;
-import model.GithubUsers;
-import model.GithubUsersResponse;
+import com.levelup.bibangamba.githubusers.model.GithubUsers;
+import com.levelup.bibangamba.githubusers.model.GithubUsersResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import service.GithubService;
-import view.GithubUserDetailsView;
-import view.GithubUsersView;
+import com.levelup.bibangamba.githubusers.service.GithubService;
+import com.levelup.bibangamba.githubusers.view.GithubUsersView;
 
 public class GithubUsersPresenter {
     private Context context;
