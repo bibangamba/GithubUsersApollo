@@ -73,6 +73,7 @@ public class DetailActivity extends AppCompatActivity implements GithubUserDetai
     public void githubUserInformationFetchComplete(GithubUsers githubUser) {
         if (githubUser == null) {
             //create mock githubUser since github api request returned null -- TESTING ONLY --
+            //mocked/faked user data when github api call get null response
             githubUser = new GithubUsers();
             final String username = "nellyk";
             final String profilePicture = "https://avatars3.githubusercontent.com/u/3062772?v=4";
