@@ -1,0 +1,24 @@
+query get40KenyanJavaDevsQuery{
+  search(type:USER, query:"location:Nairobi language:JAVA", first: 40){
+    userCount
+    edges{
+      node{
+        ... on User{
+          login
+          bio
+          avatarUrl
+          repositories{
+            totalCount
+          }
+					url
+          followers{
+            totalCount
+          }
+          following{
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}

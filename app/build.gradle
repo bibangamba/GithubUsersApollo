@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.apollographql.android'
 apply plugin: 'jacoco'
 
 apply from: "$project.rootDir/tools/findbugs.gradle"
@@ -32,7 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            // Run code coverage reports by default on debug builds.
             testCoverageEnabled = true
         }
     }
@@ -55,6 +55,13 @@ android {
             }
         }
     }
+}
+
+apollo {
+    customTypeMapping=[
+            "URI":"android.net.Uri"
+    ]
+    useSemanticNaming = false
 }
 
 dependencies {
@@ -88,4 +95,9 @@ dependencies {
 
     androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiautomatorVersion"
     implementation 'com.android.support:support-v4:28.0.0';
+
+    implementation "com.apollographql.apollo:apollo-runtime:$rootProject.apolloClientVersion"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.logginInterceptor"
+
 }
